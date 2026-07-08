@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Original hardest-mode practice MCQ quiz for Instrumentation & Control Engineering — NIT Tiruchirappalli Technical Assistant recruitment prep." />
+  <title>ICE HARDMODE — Instrumentation & Control Prep</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- STICKY HEADER -->
+  <header class="app-header" id="appHeader">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">ICE HARDMODE</span>
+      </div>
+      <div class="header-meta">
+        <div class="progress-wrap" id="progressWrap" hidden>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <span class="progress-label" id="progressLabel">0 / 0</span>
+        </div>
+        <div class="timer-chip" id="timerChip" hidden>
+          <span class="timer-dot" aria-hidden="true"></span>
+          <span id="timerText">00:00</span>
+        </div>
+        <button class="icon-btn circle" id="exitBtn" type="button" title="Exit to home" aria-label="Exit to home" hidden>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="square"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="accent-stripe" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+    <!-- HERO / START -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">ORIGINAL PRACTICE MATERIAL — NOT A REAL EXAM PAPER</p>
+        <h1 class="display">Instrumentation &amp; Control Engineering</h1>
+        <p class="hero-sub">Hardest-mode MCQ drill for NIT Tiruchirappalli Technical Assistant prep. 1000+ original questions across 19 topics — numerical, circuit-level, multi-step. Built for the skill test &amp; written exam.</p>
+
+        <div class="mode-picker" role="radiogroup" aria-label="Quiz mode">
+          <button class="mode-card" data-mode="practice" role="radio" aria-checked="false" type="button">
+            <span class="mode-name">Practice</span>
+            <span class="mode-desc">Instant feedback, untimed. Learn as you go.</span>
+          </button>
+          <button class="mode-card" data-mode="exam" role="radio" aria-checked="false" type="button">
+            <span class="mode-name">Exam</span>
+            <span class="mode-desc">Timed full set. Feedback only at the end.</span>
+          </button>
+          <button class="mode-card" data-mode="hardest" role="radio" aria-checked="false" type="button">
+            <span class="mode-name">Hardest</span>
+            <span class="mode-desc">Hard-only pool, strict timer. Pure pressure.</span>
+          </button>
+        </div>
+
+        <button class="btn-primary" id="startBtn" type="button" disabled>SELECT A MODE</button>
+      </div>
+      <div class="accent-stripe thick" aria-hidden="true"></div>
+    </section>
+
+    <!-- TOPIC SELECT -->
+    <section class="topics" id="topics" hidden>
+      <div class="section-head">
+        <h2 class="section-title">Choose A Topic</h2>
+        <p class="section-note" id="topicsNote">Pick a stream to drill. Counts shown per topic.</p>
+      </div>
+      <div class="topic-grid" id="topicGrid"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="quiz" id="quiz" hidden>
+      <div class="quiz-inner">
+        <div class="quiz-top">
+          <div class="quiz-progress">
+            <div class="progress-track"><div class="progress-fill" id="quizProgressFill"></div></div>
+            <span class="quiz-count" id="quizCount">1 / 10</span>
+          </div>
+        </div>
+        <article class="question-card" id="questionCard">
+          <div class="q-meta">
+            <span class="q-topic" id="qTopic">Topic</span>
+            <span class="q-diff" id="qDiff">hard</span>
+          </div>
+          <h3 class="q-text" id="qText">Question</h3>
+          <div class="options" id="options"></div>
+          <div class="q-feedback" id="qFeedback" hidden>
+            <p class="fb-line" id="fbLine"></p>
+            <p class="fb-explain" id="fbExplain"></p>
+            <button class="btn-next" id="nextBtn" type="button">NEXT →</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results" id="results" hidden>
+      <div class="section-head">
+        <h2 class="section-title">Results</h2>
+        <p class="section-note" id="resultsNote"></p>
+      </div>
+      <div class="stat-grid" id="statGrid"></div>
+      <div class="accent-stripe thick" aria-hidden="true"></div>
+      <div class="results-actions">
+        <button class="btn-primary" id="retryBtn" type="button">RETRY</button>
+        <button class="btn-ghost" id="reviewBtn" type="button">REVIEW ANSWERS</button>
+        <button class="btn-ghost" id="homeBtn" type="button">HOME</button>
+      </div>
+    </section>
+
+    <!-- REVIEW -->
+    <section class="review" id="review" hidden>
+      <div class="section-head">
+        <h2 class="section-title">Answer Review</h2>
+        <p class="section-note">Your choice vs. correct answer. Green = correct, amber = wrong.</p>
+      </div>
+      <div class="review-list" id="reviewList"></div>
+      <div class="results-actions">
+        <button class="btn-ghost" id="reviewBackBtn" type="button">← BACK TO RESULTS</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>ICE HARDMODE — original practice material for NIT Tiruchirappalli Technical Assistant prep.</span>
+  </footer>
+
+  <script src="data/questions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
