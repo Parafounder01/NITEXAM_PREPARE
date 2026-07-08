@@ -151,13 +151,9 @@
   function buildTheoryTopicList() {
     theoryTopicList.innerHTML = "";
     theoryTopicList.hidden = false;
-    var theoryData = (typeof THEORY_DATA_1 !== "undefined" ? THEORY_DATA_1 : []).concat(
-      typeof THEORY_DATA_2 !== "undefined" ? THEORY_DATA_2 : [],
-      typeof THEORY_DATA_3 !== "undefined" ? THEORY_DATA_3 : [],
-      typeof THEORY_DATA_4 !== "undefined" ? THEORY_DATA_4 : []
-    );
+    var theoryData = (typeof THEORY_DATA !== "undefined" && Array.isArray(THEORY_DATA)) ? THEORY_DATA : [];
     if (!theoryData.length) {
-      theoryTopicList.innerHTML = '<p class="theory-empty">Theory content not loaded.</p>';
+      theoryTopicList.innerHTML = '<p class="theory-empty">Theory content not loaded. Check that data/theory.js loaded correctly.</p>';
       return;
     }
     theoryData.forEach(function (t, i) {
