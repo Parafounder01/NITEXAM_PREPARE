@@ -30,9 +30,9 @@
   ];
 
   var MODES = {
-    practice: { label: "Practice", length: 12, perQuestionSec: 0, immediate: true, hardOnly: false },
-    exam:     { label: "Exam",     length: 25, perQuestionSec: 75, immediate: false, hardOnly: false },
-    hardest:  { label: "Hardest",  length: 25, perQuestionSec: 45, immediate: false, hardOnly: true }
+    practice: { label: "Practice", length: 12, perQuestionSec: 0, totalTimeSec: 0, immediate: true, hardOnly: false },
+    exam:     { label: "Exam",     length: 25, perQuestionSec: 75, totalTimeSec: 0, immediate: false, hardOnly: false },
+    hardest:  { label: "Hardest",  length: 25, perQuestionSec: 0, totalTimeSec: 2700, immediate: false, hardOnly: true }
   };
 
   var LS = {
@@ -48,7 +48,9 @@
   var progressWrap = $("progressWrap"), progressFill = $("progressFill"), progressLabel = $("progressLabel");
   var timerChip = $("timerChip"), timerText = $("timerText");
   var exitBtn = $("exitBtn");
-  var hero = $("hero"), topicsEl = $("topics"), quizEl = $("quiz"), resultsEl = $("results"), reviewEl = $("review");
+  var hero = $("hero"), topicsEl = $("topics"), quizEl = $("quiz"), resultsEl = $("results"), reviewEl = $("review"), theoryEl = $("theory");
+  var theoryTopicList = $("theoryTopicList"), theoryContent = $("theoryContent"), theoryBackBtn = $("theoryBackBtn");
+  var theoryTopicTitle = $("theoryTopicTitle"), theorySections = $("theorySections");
   var startBtn = $("startBtn");
   var topicGrid = $("topicGrid"), topicsNote = $("topicsNote");
   var quizProgressFill = $("quizProgressFill"), quizCount = $("quizCount");
@@ -68,8 +70,11 @@
     answers: [],      // { qid, chosen, correct, correctIndex }
     startedAt: 0,
     timerId: null,
+    totalTimerId: null,
     timeLeft: 0,
-    answered: false
+    totalTimeLeft: 0,
+    answered: false,
+    finished: false
   };
 
   // ---- utils ----
@@ -104,13 +109,13 @@
     var inQuiz = context === "quiz";
     var inFlow = context === "quiz" || context === "results" || context === "review";
     progressWrap.hidden = !inQuiz;
-    timerChip.hidden = !inQuiz;
+    timerChip.hidden = false; // always visible
     exitBtn.hidden = !inFlow;
   }
 
   // ---- view switching ----
   function showOnly(el) {
-    [hero, topicsEl, quizEl, resultsEl, reviewEl].forEach(function (e) { e.hidden = (e !== el); });
+    [hero, topicsEl, quizEl, resultsEl, reviewEl, theoryEl].forEach(function (e) { e.hidden = (e !== el); });
   }
 
   // ---- mode selection ----
@@ -121,10 +126,83 @@
       Array.prototype.forEach.call(document.querySelectorAll(".mode-card"), function (c) {
         c.setAttribute("aria-checked", c === card ? "true" : "false");
       });
-      startBtn.disabled = false;
-      startBtn.textContent = "CHOOSE TOPIC →";
-      startBtn.onclick = goToTopics;
+      if (selectedMode === "theory") {
+        startBtn.disabled = false;
+        startBtn.textContent = "START LEARNING →";
+        startBtn.onclick = goToTheory;
+      } else {
+        startBtn.disabled = false;
+        startBtn.textContent = "CHOOSE TOPIC →";
+        startBtn.onclick = goToTopics;
+      }
     });
+  });
+
+  // ---- theory/learn ----
+  function goToTheory() {
+    if (selectedMode !== "theory") return;
+    setHeader("home");
+    showOnly(theoryEl);
+    theoryContent.hidden = true;
+    theoryTopicList.hidden = false;
+    buildTheoryTopicList();
+  }
+
+  function buildTheoryTopicList() {
+    theoryTopicList.innerHTML = "";
+    theoryTopicList.hidden = false;
+    if (typeof THEORY_DATA === "undefined" || !THEORY_DATA.length) {
+      theoryTopicList.innerHTML = '<p class="theory-empty">Theory content not loaded.</p>';
+      return;
+    }
+    THEORY_DATA.forEach(function (t, i) {
+      var card = document.createElement("div");
+      card.className = "topic-card";
+      card.innerHTML =
+        '<span class="topic-index">TOPIC ' + String(i + 1).padStart(2, "0") + '</span>' +
+        '<span class="topic-label">' + t.topic + '</span>' +
+        '<span class="topic-count">' + (t.sections ? t.sections.length : 0) + ' CONCEPTS</span>' +
+        '<span class="topic-link">Learn &rarr;</span>';
+      card.addEventListener("click", function () { showTheoryTopic(t); });
+      theoryTopicList.appendChild(card);
+    });
+  }
+
+  function showTheoryTopic(topic) {
+    theoryTopicList.hidden = true;
+    theoryContent.hidden = false;
+    theoryTopicTitle.textContent = topic.topic;
+    theorySections.innerHTML = "";
+    (topic.sections || []).forEach(function (sec) {
+      var div = document.createElement("div");
+      div.className = "theory-section";
+      var html = '<h4 class="theory-sec-title">' + esc(sec.title) + '</h4>';
+      html += '<p class="theory-sec-body">' + esc(sec.content) + '</p>';
+      if (sec.steps && sec.steps.length) {
+        html += '<ol class="theory-steps">';
+        sec.steps.forEach(function (s) { html += '<li>' + esc(s) + '</li>'; });
+        html += '</ol>';
+      }
+      if (sec.analogy) {
+        html += '<div class="theory-analogy"><span class="theory-label">Analogies:</span> ' + esc(sec.analogy) + '</div>';
+      }
+      if (sec.formula) {
+        html += '<div class="theory-formula"><span class="theory-label">Formula:</span> <code>' + esc(sec.formula) + '</code></div>';
+      }
+      if (sec.keySensors) {
+        html += '<div class="theory-key"><span class="theory-label">Key Types:</span> ' + esc(sec.keySensors) + '</div>';
+      }
+      if (sec.takeaway) {
+        html += '<div class="theory-takeaway"><span class="theory-label">Takeaway:</span> ' + esc(sec.takeaway) + '</div>';
+      }
+      div.innerHTML = html;
+      theorySections.appendChild(div);
+    });
+  }
+
+  theoryBackBtn.addEventListener("click", function () {
+    theoryContent.hidden = true;
+    theoryTopicList.hidden = false;
   });
 
   function goToTopics() {
@@ -156,6 +234,7 @@
   // ---- quiz build ----
   function startQuiz(topic) {
     state.topic = topic;
+    state.finished = false;
     lsSet(LS.lastTopic, topic);
     var cfg = MODES[state.mode];
     var pool = questionsForTopic(topic);
@@ -170,6 +249,21 @@
     state.answers = [];
     state.startedAt = Date.now();
     state.answered = false;
+    clearTotalTimer();
+    // start total countdown if configured
+    if (cfg.totalTimeSec > 0) {
+      state.totalTimeLeft = cfg.totalTimeSec;
+      updateTimerText();
+      state.totalTimerId = setInterval(function () {
+        state.totalTimeLeft--;
+        updateTimerText();
+        if (state.totalTimeLeft <= 60) timerChip.classList.add("warn");
+        if (state.totalTimeLeft <= 0) {
+          clearTotalTimer();
+          finishQuiz();
+        }
+      }, 1000);
+    }
     saveSession();
     setHeader("quiz");
     showOnly(quizEl);
@@ -209,8 +303,19 @@
     progressFill.style.width = ((done / total) * 100) + "%";
     progressLabel.textContent = (state.index) + " / " + total;
 
-    // timer
-    if (cfg.perQuestionSec > 0) {
+    // show submit button only for total-timer modes
+    var submitBtn = $("submitQuizBtn");
+    if (cfg.totalTimeSec > 0) {
+      submitBtn.hidden = false;
+    } else {
+      submitBtn.hidden = true;
+    }
+
+    // timer: skip per-question timer if total timer is active
+    if (cfg.totalTimeSec > 0) {
+      // total timer already running in startQuiz, just update display
+      updateTimerText();
+    } else if (cfg.perQuestionSec > 0) {
       state.timeLeft = cfg.perQuestionSec;
       updateTimerText();
       timerChip.classList.remove("warn");
@@ -237,12 +342,21 @@
 
   function updateTimerText() {
     var cfg = MODES[state.mode];
-    if (cfg.perQuestionSec > 0) timerText.textContent = fmtTime(state.timeLeft);
-    else timerText.textContent = "+" + fmtTime(state.timeLeft);
+    if (!cfg) { timerText.textContent = "00:00"; return; }
+    if (cfg.totalTimeSec > 0) {
+      timerText.textContent = fmtTime(state.totalTimeLeft);
+    } else if (cfg.perQuestionSec > 0) {
+      timerText.textContent = fmtTime(state.timeLeft);
+    } else {
+      timerText.textContent = "+" + fmtTime(state.timeLeft);
+    }
   }
 
   function clearTimer() {
     if (state.timerId) { clearInterval(state.timerId); state.timerId = null; }
+  }
+  function clearTotalTimer() {
+    if (state.totalTimerId) { clearInterval(state.totalTimerId); state.totalTimerId = null; }
   }
 
   function onAnswer(chosen, btn) {
@@ -293,6 +407,29 @@
     saveSession();
   }
 
+  // ---- submit quiz early ----
+  var submitQuizBtn = $("submitQuizBtn");
+  if (submitQuizBtn) {
+    submitQuizBtn.addEventListener("click", function () {
+      if (state.finished) return;
+      // record current question as unanswered if not answered
+      if (!state.answered) {
+        var q = state.order[state.index];
+        state.answers.push({
+          qid: q.id, chosen: -1, correct: false, correctIndex: q.correctIndex, topic: q.topic
+        });
+      }
+      // record any remaining unanswered questions
+      for (var si = state.index + 1; si < state.order.length; si++) {
+        var sq = state.order[si];
+        state.answers.push({
+          qid: sq.id, chosen: -1, correct: false, correctIndex: sq.correctIndex, topic: sq.topic
+        });
+      }
+      finishQuiz();
+    });
+  }
+
   nextBtn.addEventListener("click", function () {
     if (state.index + 1 < state.order.length) {
       state.index++;
@@ -329,7 +466,10 @@
 
   // ---- finish / results ----
   function finishQuiz() {
+    if (state.finished) return;
+    state.finished = true;
     clearTimer();
+    clearTotalTimer();
     lsDel(LS.session);
     var total = state.order.length;
     var correct = state.answers.filter(function (a) { return a.correct; }).length;
@@ -419,6 +559,7 @@
   // ---- home / exit ----
   function goHome() {
     clearTimer();
+    clearTotalTimer();
     lsDel(LS.session);
     selectedMode = null;
     startBtn.disabled = true;

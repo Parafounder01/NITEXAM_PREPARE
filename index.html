@@ -20,7 +20,7 @@
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
           <span class="progress-label" id="progressLabel">0 / 0</span>
         </div>
-        <div class="timer-chip" id="timerChip" hidden>
+        <div class="timer-chip" id="timerChip">
           <span class="timer-dot" aria-hidden="true"></span>
           <span id="timerText">00:00</span>
         </div>
@@ -50,8 +50,12 @@
             <span class="mode-desc">Timed full set. Feedback only at the end.</span>
           </button>
           <button class="mode-card" data-mode="hardest" role="radio" aria-checked="false" type="button">
-            <span class="mode-name">Hardest</span>
-            <span class="mode-desc">Hard-only pool, strict timer. Pure pressure.</span>
+            <span class="mode-name">Skill Test</span>
+            <span class="mode-desc">45:00 countdown, hard-only. Submit when ready.</span>
+          </button>
+          <button class="mode-card learn-card" data-mode="theory" role="radio" aria-checked="false" type="button">
+            <span class="mode-name">Learn</span>
+            <span class="mode-desc">Topic theory — slow learner explanations, step-by-step.</span>
           </button>
         </div>
 
@@ -91,6 +95,7 @@
             <button class="btn-next" id="nextBtn" type="button">NEXT →</button>
           </div>
         </article>
+        <button class="btn-submit-quiz" id="submitQuizBtn" type="button" hidden>SUBMIT QUIZ →</button>
       </div>
     </section>
 
@@ -106,6 +111,20 @@
         <button class="btn-primary" id="retryBtn" type="button">RETRY</button>
         <button class="btn-ghost" id="reviewBtn" type="button">REVIEW ANSWERS</button>
         <button class="btn-ghost" id="homeBtn" type="button">HOME</button>
+      </div>
+    </section>
+
+    <!-- THEORY / LEARN -->
+    <section class="theory" id="theory" hidden>
+      <div class="section-head">
+        <h2 class="section-title">Learn — Slow Method</h2>
+        <p class="section-note">Topic-by-topic theory. One concept at a time. Simple explanations, analogies, step-by-step breakdowns.</p>
+      </div>
+      <div class="theory-topic-list" id="theoryTopicList"></div>
+      <div class="theory-content" id="theoryContent" hidden>
+        <button class="btn-ghost theory-back" id="theoryBackBtn" type="button">← ALL TOPICS</button>
+        <h3 class="theory-topic-title" id="theoryTopicTitle"></h3>
+        <div class="theory-sections" id="theorySections"></div>
       </div>
     </section>
 
@@ -127,6 +146,7 @@
   </footer>
 
   <script src="data/questions.js"></script>
+  <script src="data/theory.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
