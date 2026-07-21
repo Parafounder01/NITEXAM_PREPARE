@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSG Polytechnic — Staff Selection Quiz 2026</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- MASCOT MASTHEAD -->
+    <div class="mascot-masthead">
+        <div class="mascot-bubble">
+            <span class="bubble-text">Welcome to PSG Polytechnic Quiz!</span>
+            <div class="bubble-tail"></div>
+        </div>
+        <div class="mascot-character">
+            <div class="pixel-mascot">👨‍🎓</div>
+        </div>
+    </div>
+
+    <!-- PRIMARY NAV BAR (Carbon Command Layer) -->
+    <nav class="nav-bar">
+        <div class="nav-inner">
+            <div class="logo-pill">
+                <span class="logo-text">PSG</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-section="home">HOME</a>
+                <a href="#" class="nav-link" data-section="quiz">QUIZ</a>
+                <a href="#" class="nav-link" data-section="results">RESULTS</a>
+                <a href="#" class="nav-link" data-section="leaderboard">LEADERBOARD</a>
+            </div>
+            <div class="nav-chips">
+                <span class="chip chip-amber">REG 83045</span>
+                <span class="chip chip-amber">BANUPRIYA</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECONDARY NAV STRIP -->
+    <div class="subnav-strip">
+        <div class="subnav-inner">
+            <a href="#" class="subnav-link">General Studies</a>
+            <a href="#" class="subnav-link">Aptitude</a>
+            <a href="#" class="subnav-link">Tamil</a>
+            <a href="#" class="subnav-link">English</a>
+            <a href="#" class="subnav-link">Computer</a>
+        </div>
+    </div>
+
+    <!-- LEFT RAIL TABS -->
+    <div class="left-rail">
+        <div class="rail-tab active" data-category="all">ALL</div>
+        <div class="rail-tab" data-category="history">HIST</div>
+        <div class="rail-tab" data-category="geography">GEO</div>
+        <div class="rail-tab" data-category="polity">POL</div>
+        <div class="rail-tab" data-category="science">SCI</div>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+        <!-- HERO PANEL -->
+        <section class="hero-panel">
+            <div class="hero-bg hero-home"></div>
+            <div class="hero-content">
+                <h1 class="hero-wordmark">1000+ HARD<br>QUESTIONS</h1>
+                <p class="hero-tagline">PSG Polytechnic Staff Selection — Reg 83045 — 26.07.2026</p>
+                <button class="btn-start-quiz" onclick="startQuiz()">
+                    <span class="btn-text">START QUIZ</span>
+                    <span class="btn-arrow">▶</span>
+                </button>
+            </div>
+            <div class="esrb-badge">
+                <span class="esrb-text">ESRB — STUDY CERTIFIED</span>
+            </div>
+        </section>
+
+        <!-- TWO COLUMN LAYOUT -->
+        <div class="two-column">
+            <!-- LEFT COLUMN (2/3) -->
+            <div class="content-column">
+                
+                <!-- QUIZ PANEL -->
+                <div class="panel quiz-panel" id="quiz-panel">
+                    <div class="section-label-bar">
+                        <span class="label-icon">📝</span>
+                        <span class="label-text">QUIZ ENGINE</span>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Quiz Status Bar -->
+                        <div class="quiz-status-bar">
+                            <div class="status-item">
+                                <span class="status-label">QUESTION</span>
+                                <span class="status-value" id="question-num">1/1000</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">SCORE</span>
+                                <span class="status-value" id="score">0</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">TIME</span>
+                                <span class="status-value" id="timer">02:00</span>
+                            </div>
+                        </div>
+
+                        <!-- Question Display -->
+                        <div class="question-display" id="question-display">
+                            <div class="question-category" id="question-category">HISTORY</div>
+                            <div class="question-text" id="question-text">
+                                The Indus Valley Civilization belonged to which Age?
+                            </div>
+                        </div>
+
+                        <!-- Options -->
+                        <div class="options-container" id="options-container">
+                            <div class="option-btn" data-option="A" onclick="selectOption(this)">
+                                <span class="option-letter">A</span>
+                                <span class="option-text">Paleolithic</span>
+                            </div>
+                            <div class="option-btn" data-option="B" onclick="selectOption(this)">
+                                <span class="option-letter">B</span>
+                                <span class="option-text">Mesolithic</span>
+                            </div>
+                            <div class="option-btn" data-option="C" onclick="selectOption(this)">
+                                <span class="option-letter">C</span>
+                                <span class="option-text">Chalcolithic</span>
+                            </div>
+                            <div class="option-btn" data-option="D" onclick="selectOption(this)">
+                                <span class="option-letter">D</span>
+                                <span class="option-text">Iron Age</span>
+                            </div>
+                        </div>
+
+                        <!-- Explanation Box -->
+                        <div class="explanation-box" id="explanation-box" style="display: none;">
+                            <div class="explanation-header">
+                                <span class="explanation-icon">💡</span>
+                                <span class="explanation-title">EXPLANATION</span>
+                            </div>
+                            <div class="explanation-content" id="explanation-content">
+                                The Indus Valley Civilization (also called Harappan Civilization) existed around 3300-1300 BCE. This was the "Copper-Stone Age" — people used copper tools and stone tools together.
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="quiz-nav">
+                            <button class="btn-nav btn-prev" onclick="prevQuestion()">◄ PREV</button>
+                            <button class="btn-nav btn-submit" onclick="submitAnswer()">SUBMIT</button>
+                            <button class="btn-nav btn-next" onclick="nextQuestion()">NEXT ►</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OFFICIAL NEWS PANEL -->
+                <div class="panel news-panel">
+                    <div class="section-label-bar">
+                        <span class="label-icon">📰</span>
+                        <span class="label-text">EXAM UPDATES</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="news-row">
+                            <span class="news-icon">🔴</span>
+                            <a href="#" class="news-link">Exam Date Confirmed: 26 July 2026</a>
+                            <span class="news-arrow">►</span>
+                        </div>
+                        <div class="news-row">
+                            <span class="news-icon">📋</span>
+                            <a href="#" class="news-link">Admit Card Available for Download</a>
+                            <span class="news-arrow">►</span>
+                        </div>
+                        <div class="news-row">
+                            <span class="news-icon">🎯</span>
+                            <a href="#" class="news-link">1000+ Practice Questions Ready</a>
+                            <span class="news-arrow">►</span>
+                        </div>
+                        <div class="news-row">
+                            <span class="news-icon">📊</span>
+                            <a href="#" class="news-link">Previous Year Analysis Available</a>
+                            <span class="news-arrow">►</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FEATURED SITES GRID -->
+                <div class="panel featured-panel">
+                    <div class="section-label-bar">
+                        <span class="label-icon">⭐</span>
+                        <span class="label-text">STUDY RESOURCES</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="featured-grid">
+                            <div class="featured-tile">
+                                <div class="tile-image">📚</div>
+                                <div class="tile-caption">General Studies</div>
+                            </div>
+                            <div class="featured-tile">
+                                <div class="tile-image">🔢</div>
+                                <div class="tile-caption">Aptitude</div>
+                            </div>
+                            <div class="featured-tile">
+                                <div class="tile-image">📝</div>
+                                <div class="tile-caption">Tamil Grammar</div>
+                            </div>
+                            <div class="featured-tile">
+                                <div class="tile-image">💻</div>
+                                <div class="tile-caption">Computer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT RAIL (1/3) -->
+            <div class="action-rail">
+                <!-- LOGIN PANEL -->
+                <div class="panel login-panel">
+                    <div class="section-label-bar">
+                        <span class="label-icon">🔐</span>
+                        <span class="label-text">CANDIDATE LOGIN</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="field-label">REGISTRATION NO.</label>
+                            <input type="text" class="text-input" value="83045" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">CANDIDATE NAME</label>
+                            <input type="text" class="text-input" value="BANUPRIYA" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label">EXAM DATE</label>
+                            <input type="text" class="text-input" value="26.07.2026" readonly>
+                        </div>
+                        <button class="btn-action btn-login">VIEW PROFILE</button>
+                    </div>
+                </div>
+
+                <!-- INFO BOX -->
+                <div class="panel info-box">
+                    <div class="info-header">
+                        <span class="info-icon">ℹ️</span>
+                        <span class="info-title">WHAT IS — QUIZ MODE?</span>
+                    </div>
+                    <div class="info-body">
+                        <p>Practice with 1000+ hard questions covering all exam topics.</p>
+                        <ul class="info-list">
+                            <li>General Studies (40-50%)</li>
+                            <li>Aptitude & Reasoning (20-30%)</li>
+                            <li>Tamil Language (20%)</li>
+                            <li>English Language (10%)</li>
+                            <li>Computer Basics (10%)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- QUICK STATS -->
+                <div class="panel stats-panel">
+                    <div class="section-label-bar">
+                        <span class="label-icon">📊</span>
+                        <span class="label-text">YOUR STATS</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="stat-row">
+                            <span class="stat-label">Questions Answered</span>
+                            <span class="stat-value" id="stat-answered">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Correct Answers</span>
+                            <span class="stat-value stat-correct" id="stat-correct">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Accuracy</span>
+                            <span class="stat-value" id="stat-accuracy">0%</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Time Remaining</span>
+                            <span class="stat-value stat-time" id="stat-time">02:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROMO CARD -->
+                <div class="panel promo-card">
+                    <div class="promo-content">
+                        <div class="promo-wordmark">EXAM<br>READY!</div>
+                        <p class="promo-text">26 July 2026 — 03:30 PM</p>
+                        <p class="promo-subtext">PSG Tech Campus, Coimbatore</p>
+                    </div>
+                </div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="action-buttons">
+                    <button class="btn-action btn-subscribe">SUBSCRIBE</button>
+                    <button class="btn-action btn-newsletter">NEWSLETTER</button>
+                    <button class="btn-action btn-help">HELP</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-bar">
+        <div class="footer-inner">
+            <div class="footer-copyright">
+                ©2026 PSG Polytechnic College — Staff Selection Quiz
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <span class="footer-divider">|</span>
+                <a href="#">Terms of Service</a>
+                <span class="footer-divider">|</span>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-esrb">
+                <span class="esrb-badge-small">ESRB — PRIVACY CERTIFIED</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- RESULTS MODAL -->
+    <div class="modal-overlay" id="results-modal" style="display: none;">
+        <div class="modal-panel">
+            <div class="section-label-bar">
+                <span class="label-icon">🏆</span>
+                <span class="label-text">QUIZ RESULTS</span>
+            </div>
+            <div class="modal-body">
+                <div class="results-display">
+                    <div class="result-score">
+                        <span class="result-label">FINAL SCORE</span>
+                        <span class="result-value" id="final-score">0</span>
+                        <span class="result-total">/ 1000</span>
+                    </div>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <span class="stat-num" id="result-correct">0</span>
+                            <span class="stat-desc">CORRECT</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="stat-num" id="result-wrong">0</span>
+                            <span class="stat-desc">WRONG</span>
+                        </div>
+                        <div class="result-stat">
+                            <span class="stat-num" id="result-skipped">0</span>
+                            <span class="stat-desc">SKIPPED</span>
+                        </div>
+                    </div>
+                    <div class="result-message" id="result-message">
+                        Great job, Banupriya! Keep practicing!
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-action btn-retry" onclick="retryQuiz()">RETRY QUIZ</button>
+                    <button class="btn-action btn-close" onclick="closeModal()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>
