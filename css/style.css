@@ -364,6 +364,37 @@ body {
     transform: translate(2px, 2px);
 }
 
+.btn-study-mode {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: var(--colors-primary);
+    color: var(--colors-on-primary);
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border-top: 2px solid #ff4444;
+    border-left: 2px solid #ff4444;
+    border-bottom: 2px solid #990000;
+    border-right: 2px solid #990000;
+    transition: all 0.1s;
+    text-decoration: none;
+    margin-left: var(--spacing-md);
+}
+
+.btn-study-mode:hover {
+    background: #cc0000;
+    transform: translate(1px, 1px);
+    border-top: 1px solid #ff4444;
+    border-left: 1px solid #ff4444;
+    border-bottom: 2px solid #990000;
+    border-right: 2px solid #990000;
+}
+
 .btn-arrow {
     font-size: 16px;
 }
