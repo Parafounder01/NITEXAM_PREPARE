@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSG Polytechnic — Study Mode (Slow Learner Friendly)</title>
+    <link rel="stylesheet" href="css/study.css">
+</head>
+<body>
+
+    <!-- ═══════ HEADER ═══════ -->
+    <header class="study-header">
+        <div class="header-inner">
+            <a href="index.html" class="back-btn">← QUIZ</a>
+            <h1 class="header-title">📚 STUDY MODE</h1>
+            <div class="header-info">
+                <span class="reg-chip">REG 83045</span>
+                <span class="name-chip">BANUPRIYA</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════ PROGRESS BAR ═══════ -->
+    <div class="progress-section">
+        <div class="progress-inner">
+            <div class="progress-label">
+                <span>YOUR PROGRESS</span>
+                <span id="progress-text">0 / 1000</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-stats">
+                <div class="stat">
+                    <span class="stat-num" id="stat-mastered">0</span>
+                    <span class="stat-label">MASTERED</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" id="stat-learning">0</span>
+                    <span class="stat-label">LEARNING</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" id="stat-new">1000</span>
+                    <span class="stat-label">NEW</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ STUDY RESOURCES ═══════ -->
+    <div class="resources-section">
+        <div class="resources-inner">
+            <h2 class="section-title">⭐ STUDY RESOURCES</h2>
+            <div class="resources-grid">
+                <a href="study.html?cat=HISTORY" class="resource-card">
+                    <div class="resource-icon">📚</div>
+                    <h3>General Studies</h3>
+                    <p>History, Geography, Polity, Economics, Science</p>
+                </a>
+                <a href="study.html?cat=APTITUDE" class="resource-card">
+                    <div class="resource-icon">🔢</div>
+                    <h3>Aptitude</h3>
+                    <p>Maths, Reasoning, Problem Solving</p>
+                </a>
+                <a href="study.html?cat=TAMIL" class="resource-card">
+                    <div class="resource-icon">📝</div>
+                    <h3>Tamil Grammar</h3>
+                    <p>இலக்கணம், சொல், பொருள், அணி</p>
+                </a>
+                <a href="study.html?cat=COMPUTER" class="resource-card">
+                    <div class="resource-icon">💻</div>
+                    <h3>Computer</h3>
+                    <p>MS Office, Internet, Basics, Hardware</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ MODE SELECTOR ═══════ -->
+    <div class="mode-section">
+        <div class="mode-inner">
+            <h2 class="section-title">CHOOSE YOUR LEARNING MODE</h2>
+            <p class="section-subtitle">Pick what works best for you right now. You can switch anytime!</p>
+            
+            <div class="mode-grid">
+                <!-- FLIP CARDS -->
+                <div class="mode-card" onclick="startMode('flipcards')">
+                    <div class="mode-icon">🃏</div>
+                    <h3>FLIP CARDS</h3>
+                    <p>Tap to reveal answers. Perfect for quick review. Uses spaced repetition to show you what you need most.</p>
+                    <div class="mode-tag">BEST FOR: Quick Memory</div>
+                </div>
+
+                <!-- VISUAL MIND MAPS -->
+                <div class="mode-card" onclick="startMode('mindmap')">
+                    <div class="mode-icon">🧠</div>
+                    <h3>VISUAL MIND MAPS</h3>
+                    <p>See connections between topics. Colors, diagrams, and pictures help you understand the big picture.</p>
+                    <div class="mode-tag">BEST FOR: Understanding</div>
+                </div>
+
+                <!-- STEP-BY-STEP -->
+                <div class="mode-card" onclick="startMode('stepbystep')">
+                    <div class="mode-icon">📖</div>
+                    <h3>STEP-BY-STEP</h3>
+                    <p>One question at a time. Read at your own pace. No pressure. Rewind anytime.</p>
+                    <div class="mode-tag">BEST FOR: Slow Reading</div>
+                </div>
+
+                <!-- AUDIO MODE -->
+                <div class="mode-card" onclick="startMode('audio')">
+                    <div class="mode-icon">🔊</div>
+                    <h3>AUDIO MODE</h3>
+                    <p>Listen to explanations while you read along. Great for auditory learners.</p>
+                    <div class="mode-tag">BEST FOR: Listening</div>
+                </div>
+
+                <!-- CATEGORY STUDY -->
+                <div class="mode-card" onclick="startMode('category')">
+                    <div class="mode-icon">📂</div>
+                    <h3>CATEGORY STUDY</h3>
+                    <p>Focus on one subject at a time. History, Geography, Science — pick your weak area.</p>
+                    <div class="mode-tag">BEST FOR: Focus</div>
+                </li>
+
+                <!-- CHALLENGE MODE -->
+                <div class="mode-card" onclick="startMode('challenge')">
+                    <div class="mode-icon">🏆</div>
+                    <h3>CHALLENGE MODE</h3>
+                    <p>Gamified learning! Earn points, unlock levels, compete with yourself.</p>
+                    <div class="mode-tag">BEST FOR: Motivation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ STUDY AREA (Hidden initially) ═══════ -->
+    <div class="study-area" id="study-area" style="display:none;">
+        <div class="study-inner">
+            
+            <!-- TOP CONTROLS -->
+            <div class="study-controls">
+                <button class="ctrl-btn" onclick="prevCard()">← PREV</button>
+                <div class="ctrl-center">
+                    <span id="card-counter">1 / 10</span>
+                    <span id="mode-label">FLIP CARDS</span>
+                </div>
+                <button class="ctrl-btn" onclick="nextCard()">NEXT →</button>
+            </div>
+
+            <!-- CATEGORY SELECTOR -->
+            <div class="category-bar" id="category-bar">
+                <button class="cat-btn active" data-cat="all">ALL</button>
+                <button class="cat-btn" data-cat="HISTORY">📜 HISTORY</button>
+                <button class="cat-btn" data-cat="GEOGRAPHY">🌍 GEOGRAPHY</button>
+                <button class="cat-btn" data-cat="POLITY">⚖️ POLITY</button>
+                <button class="cat-btn" data-cat="ECONOMICS">💰 ECONOMICS</button>
+                <button class="cat-btn" data-cat="SCIENCE">🔬 SCIENCE</button>
+                <button class="cat-btn" data-cat="COMPUTER">💻 COMPUTER</button>
+                <button class="cat-btn" data-cat="TAMIL">🏮 TAMIL GK</button>
+                <button class="cat-btn" data-cat="CURRENT">📰 CURRENT</button>
+                <button class="cat-btn" data-cat="APTITUDE">🧮 APTITUDE</button>
+            </div>
+
+            <!-- FLIP CARD DISPLAY -->
+            <div class="flipcard-container" id="flipcard-container">
+                <div class="flipcard" id="flipcard" onclick="flipCard()">
+                    <div class="flipcard-front">
+                        <div class="card-category" id="card-category">HISTORY</div>
+                        <div class="card-number" id="card-number">Q1</div>
+                        <div class="card-question" id="card-question">Loading question...</div>
+                        <div class="card-hint">TAP TO REVEAL ANSWER</div>
+                        <button class="speak-btn" onclick="event.stopPropagation(); speakQuestion()">🔊 LISTEN</button>
+                    </div>
+                    <div class="flipcard-back">
+                        <div class="card-answer-label">ANSWER</div>
+                        <div class="card-answer" id="card-answer">Loading...</div>
+                        <div class="card-explanation-label">📖 WHY? (Simple Explanation)</div>
+                        <div class="card-explanation" id="card-explanation">Loading explanation...</div>
+                        <div class="card-memory" id="card-memory" style="display:none">
+                            <div class="memory-label">🧠 MEMORY TRICK</div>
+                            <div class="card-memory-text" id="card-memory-text"></div>
+                        </div>
+                        <div class="card-tamil" id="card-tamil" style="display:none">
+                            <div class="tamil-label">தமிழ்</div>
+                            <div class="card-tamil-text" id="card-tamil-text"></div>
+                        </div>
+                        <button class="speak-btn" onclick="event.stopPropagation(); speakExplanation()">🔊 LISTEN</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP-BY-STEP DISPLAY (Hidden initially) -->
+            <div class="step-container" id="step-container" style="display:none;">
+                <div class="step-card">
+                    <div class="step-progress">
+                        <span>STEP <span id="step-current">1</span> OF <span id="step-total">5</span></span>
+                    </div>
+                    <div class="step-category" id="step-category">HISTORY</div>
+                    <div class="step-question" id="step-question">Loading...</div>
+                    
+                    <div class="step-options" id="step-options">
+                        <!-- Options inserted by JS -->
+                    </div>
+
+                    <div class="step-explanation" id="step-explanation" style="display:none;">
+                        <div class="step-answer" id="step-answer"></div>
+                        <div class="step-why" id="step-why"></div>
+                        <div class="step-tamil" id="step-tamil"></div>
+                        <button class="speak-btn" onclick="speakStepExplanation()">🔊 LISTEN</button>
+                    </div>
+
+                    <div class="step-actions">
+                        <button class="step-btn" id="step-check" onclick="checkStepAnswer()">CHECK ANSWER</button>
+                        <button class="step-btn step-next" id="step-next" onclick="nextStep()" style="display:none;">NEXT →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MIND MAP DISPLAY (Hidden initially) -->
+            <div class="mindmap-container" id="mindmap-container" style="display:none;">
+                <div class="mindmap">
+                    <div class="mindmap-center" id="mindmap-center">TOPIC</div>
+                    <div class="mindmap-branches" id="mindmap-branches">
+                        <!-- Branches inserted by JS -->
+                    </div>
+                </div>
+                <div class="mindmap-info">
+                    <h3 id="mindmap-title">Topic Overview</h3>
+                    <div id="mindmap-details">Select a branch to learn more.</div>
+                </div>
+            </div>
+
+            <!-- BOTTOM ACTIONS -->
+            <div class="study-actions">
+                <button class="action-btn btn-hard" onclick="markHard()">❌ HARD</button>
+                <button class="action-btn btn-ok" onclick="markOk()">🔄 OK</button>
+                <button class="action-btn btn-easy" onclick="markEasy()">✅ EASY</button>
+            </div>
+
+            <!-- AUDIO PLAYER BAR -->
+            <div class="audio-bar" id="audio-bar" style="display:none;">
+                <div class="audio-inner">
+                    <button class="audio-play" id="audio-play" onclick="toggleAudio()">▶</button>
+                    <div class="audio-progress">
+                        <div class="audio-fill" id="audio-fill"></div>
+                    </div>
+                    <span class="audio-speed" id="audio-speed" onclick="changeSpeed()">1x</span>
+                    <label class="audio-toggle">
+                        <input type="checkbox" id="auto-read" checked> AUTO-READ
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ═══════ SLOW LEARNER TIPS POPUP ═══════ -->
+    <div class="tips-popup" id="tips-popup" style="display:none;">
+        <div class="tips-content">
+            <h2>💡 TIPS FOR SLOW LEARNERS</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">🎬</div>
+                    <h4>1. SELF-PACED LEARNING</h4>
+                    <p>No timer. No pressure. Go as slow as you need. Pause, rewind, re-read anytime.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🃏</div>
+                    <h4>2. FLIP CARDS</h4>
+                    <p>Tap to reveal. Use spaced repetition — cards you find hard appear more often.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🧠</div>
+                    <h4>3. VISUAL MIND MAPS</h4>
+                    <p>See how topics connect. Use colors and pictures to remember better.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🔊</div>
+                    <h4>4. LISTEN & READ</h4>
+                    <p>Turn on audio. Listen while reading along. Brain processes sound faster than text.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🔄</div>
+                    <h4>5. SPACED REPETITION</h4>
+                    <p>Review after 1 day, then 3 days, then 1 week. Scientifically proven to improve memory!</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">📊</div>
+                    <h4>6. TRACK PROGRESS</h4>
+                    <p>See how many you've mastered. Small wins build confidence!</p>
+                </div>
+            </div>
+            <button class="tips-close" onclick="closeTips()">GOT IT! LET'S START →</button>
+        </div>
+    </div>
+
+    <!-- ═══════ MIND MAP POPUP ═══════ -->
+    <div class="mindmap-popup" id="mindmap-popup" style="display:none;">
+        <div class="mindmap-popup-content">
+            <button class="popup-close" onclick="closeMindmap()">×</button>
+            <h3 id="mindmap-popup-title">Topic</h3>
+            <div id="mindmap-popup-body">Details here...</div>
+            <button class="speak-btn" onclick="speakMindmap()">🔊 LISTEN</button>
+        </div>
+    </div>
+
+    <script src="js/study.js"></script>
+</body>
+</html>
